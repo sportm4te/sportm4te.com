@@ -1,0 +1,179 @@
+.object-fit-cover
+{
+    object-fit: cover;
+}
+
+.logo-light, .logo-dark {
+    display: none;
+}
+
+.theme-dark .logo-dark {
+    display: block;
+}
+
+.theme-light .logo-light {
+    display: block;
+}
+
+@import '~@trevoreyre/autocomplete-js/dist/style.css';
+
+.privacy-chooser .gradient-highlight .color-mute,
+.theme-dark .privacy-chooser .color-mute{
+color: #ffffff
+}
+
+.input-style.has-borders input.autocomplete-input
+{
+    position: initial;
+    background-color: #fff;
+    padding: 12px 12px 12px 48px!important;
+}
+
+.input-style.has-borders[data-position=below] .autocomplete-input[aria-expanded=true] {
+    border-bottom-color: transparent;
+    border-radius: 8px 8px 0 0!important;
+}
+
+.theme-dark .autocomplete-result-list {
+    background: #1b1d21;
+}
+
+.theme-dark .autocomplete[data-loading=true]:after {
+    border: 3px solid rgba(255, 255, 255, 12%);
+    border-right-color: rgba(255, 255, 255, 48%);
+}
+
+select[readonly] {
+    pointer-events: none;
+}
+
+.form-check span {
+    padding-left: 34px;
+}
+
+.icon-badge {
+    padding: 0.5rem;
+    width: 28px;
+    height: 28px;
+    text-align: center;
+}
+
+
+
+
+.no-transition {
+    -webkit-transition: none ! important;
+    transition: none ! important;
+}
+
+.stackedcards-overflow {
+    overflow-y: hidden !important;
+}
+
+.stackedcards.init {
+    opacity: 0;
+}
+
+.stackedcards {
+    position: relative;
+}
+
+.stackedcards * {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.stackedcards--animatable {
+    -webkit-transition: all 400ms ease;
+    -o-transition: all 400ms ease;
+    transition: all 400ms ease;
+}
+
+.stackedcards .stackedcards-container > *,
+.stackedcards-overlay {
+    position: absolute;
+    width: -webkit-fill-available; /* set 100% */
+    height: 100%; /* set 100% */
+    will-change: transform, opacity;
+    top: 0;
+    min-width: 265px;
+}
+
+.stackedcards-overlay.left > div,
+.stackedcards-overlay.right > div,
+.stackedcards-overlay.top > div {
+    width: 100%;
+    height: 100%;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.stackedcards-overlay.left,
+.stackedcards-overlay.right,
+.stackedcards-overlay.top {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    left: 0;
+    opacity: 0;
+    top: 0;
+    height: 100%;
+}
+
+.stackedcards-overlay.top,
+.stackedcards-overlay.right,
+.stackedcards-overlay.left {
+    background: #fff;
+    margin: 0 15px;
+    border-radius: 20px;
+}
+
+.stackedcards-overlay.left:empty,
+.stackedcards-overlay.right:empty,
+.stackedcards-overlay.top:empty {
+    display: none !important;
+}
+
+.stackedcards-overlay-hidden {
+    display: none;
+}
+
+.stackedcards-origin-bottom {
+    -webkit-transform-origin: bottom;
+    -ms-transform-origin: bottom;
+    transform-origin: bottom;
+}
+
+.stackedcards-origin-top {
+    -webkit-transform-origin: top;
+    -ms-transform-origin: top;
+    transform-origin: top;
+}
+
+.stackedcards-bottom,
+.stackedcards-top,
+.stackedcards-none {
+    background: #fff; /* set card background background */
+    box-shadow: 0 6px 12px 0 rgba(0,0,0,0.30);
+    height: 100%;
+}
+
+.stackedcards .stackedcards-container > :nth-child(1) {
+    position: relative;
+    display: block;
+}

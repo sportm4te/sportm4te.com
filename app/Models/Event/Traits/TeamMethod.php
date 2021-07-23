@@ -25,4 +25,15 @@ trait TeamMethod
 
         return $count . ' ' . $members;
     }
+
+    public function toArray()
+    {
+        return [
+            'id'      => $this->id,
+            'type'    => self::TEAM,
+            'name'    => $this->name,
+            'score'   => $this->score?->toArray(),
+            'members' => $this->members->toArray(),
+        ];
+    }
 }

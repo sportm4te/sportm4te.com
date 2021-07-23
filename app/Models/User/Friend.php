@@ -21,5 +21,9 @@ class Friend extends Model
 {
     use FriendRelationship;
 
+    const REQUEST_RECEIVED = 'request_received';
+    const ARE_FRIENDS = 'are_friends';
+    const REQUEST_SENT = 'request_sent';
+
     protected $table = 'friend';
 }

@@ -6,9 +6,9 @@
 namespace App\Http\Requests;
 
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiRequest;
 
-class ChangePasswordRequest extends FormRequest
+class ChangePasswordRequest extends ApiRequest
 {
     public function rules()
     {

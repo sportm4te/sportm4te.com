@@ -25,24 +25,4 @@ class SportChooseController extends Controller
 
         return view('user.sport-choose', get_defined_vars());
     }
-
-    public function store(Request $request)
-    {
-        $user = $request->user();
-        $user->sports()->delete();
-
-        foreach ($request->get('preference') as $sportId => $priority) {
-            if (!empty($priority)) {
-                $user->sports()->firstOrCreate([
-                    'sport_id' => $sportId,
-                    'priority' => $priority,
-                ]);
-            }
-        }
-
-        return [
-            'message' => 'Preferences has been saved!',
-            'redirect' => route('events.list'),
-        ];
-    }
 }

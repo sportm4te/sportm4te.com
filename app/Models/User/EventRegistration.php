@@ -34,4 +34,6 @@ class EventRegistration extends Model
         'user_id',
         'event_id',
     ];
+
+    public const MEMBER = 'member';
 }

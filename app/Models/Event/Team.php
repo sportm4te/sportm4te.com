@@ -19,7 +19,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Team extends Model
 {
-    use TeamRelationship, TeamMethod;
+    use TeamRelationship,
+        TeamMethod;
 
     protected $table = 'team';
+
+    public const TEAM = 'team';
 }

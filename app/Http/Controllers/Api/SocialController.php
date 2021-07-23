@@ -3,15 +3,15 @@
  * @copyright Sport M4te s.r.o. 2021 - present
  */
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\ProviderRegisterRequest;
 use App\Management\RegisterService;
 use App\Models\Management\Timezone;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
-use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Routing\Controller;
 
 class SocialController extends Controller
 {
@@ -20,11 +20,6 @@ class SocialController extends Controller
     public function __construct(RegisterService $registerService)
     {
         $this->registerService = $registerService;
-    }
-
-    public function redirect($provider)
-    {
-        return Socialite::driver($provider)->redirect();
     }
 
     public function store(ProviderRegisterRequest $request)
@@ -43,25 +38,10 @@ class SocialController extends Controller
             'unit'        => User::MI_UNIT,
         ]);
 
-        Auth::login($user);
-
-        return [
+        return new JsonResponse([
+            'user'    => $user->toArray(),
+            'token'   => getToken(),
             'message' => 'You have been registered.',
-            'redirect' => route('sport-choose'),
-        ];
-    }
-
-    public function callback($provider)
-    {
-        $userSocial = Socialite::driver($provider)->stateless()->user();
-        $users = User::where(['email' => $userSocial->getEmail()])->first();
-        $genders = $this->registerService->getGenders();
-
-        if($users) {
-            Auth::login($users);
-            return redirect('/');
-        }
-
-        return view('auth.social-register', get_defined_vars());
+        ], 201);
     }
 }

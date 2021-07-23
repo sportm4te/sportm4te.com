@@ -29,19 +29,28 @@ trait EventMethod
                 'formatted' => $this->formatLevel(),
             ],
             'dates' => [
-                'start' => $this->start,
-                'end' => $this->end,
+                'oneline' => $this->formatDate(),
+                'start' => [
+                    'date' => $this->start,
+                    'formatted' => $this->formatStart(),
+                ],
+                'end' => [
+                    'date' => $this->end,
+                    'formatted' => $this->formatEnd(),
+                ],
+            ],
+            'deadline' => [
+                'date' => $this->deadline,
+                'formatted' => $this->formatDeadline(),
             ],
             'limits' => [
-                'users' => $this->registration_limit,
                 'deadline' => $this->deadline,
                 'deadline_reached' => $this->deadlineReached(),
+                'limit' => $this->registration_limit,
+                'members' => $this->registrations()->count(),
+                'members_reached' => $this->quotaReached(),
             ],
-            'registrations' => [
-                'limit' => $this->registrations()->count(),
-                'reached' => $this->quotaReached(),
-            ],
-            'owner' => $this->user_id,
+            'owner' => $this->owner->toArray(),
         ];
     }
 
@@ -190,10 +199,7 @@ trait EventMethod
     public function members()
     {
         $this->loadMissing(['teams.members.user', 'teams.score']);
-        $teams = $this->teams->keyBy('id')->map(function ($team) {
-            $team->setRelation('members', $team->members->keyBy('user_id'));
-            return $team;
-        });
+        $teams = $this->teams->keyBy('id');
         $_teams = [];
         $_members = $this->membersWithoutTeam();
 
@@ -272,6 +278,14 @@ trait EventMethod
     {
         $timezone = $this->place->timezone->timezone;
         $date = $this->start->clone()->setTimezone($timezone)->format('l, jS F Y \a\t h:i a (\G\M\TP)');
+
+        return str_replace(' ' . Carbon::now()->year, '', $date);
+    }
+
+    public function formatEnd(): string
+    {
+        $timezone = $this->place->timezone->timezone;
+        $date = $this->end->clone()->setTimezone($timezone)->format('l, jS F Y \a\t h:i a (\G\M\TP)');
 
         return str_replace(' ' . Carbon::now()->year, '', $date);
     }

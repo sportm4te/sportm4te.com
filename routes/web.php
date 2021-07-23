@@ -56,7 +56,6 @@ Route::domain('app.sportm4te.com')->group(function() {
 
     Route::group(['middleware' => 'auth'], function () {
         Route::get('/sport-choose', [SportChooseController::class, 'index'])->name('sport-choose');
-        Route::post('/sport-choose', [SportChooseController::class, 'store'])->name('sport-choose.store');
         Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
         Route::get('/settings', [SettingsController::class, 'settings'])->name('settings');
         Route::get('/profile/{user}', [ProfileController::class, 'profile'])->name('profile');

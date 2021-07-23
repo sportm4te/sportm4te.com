@@ -48,9 +48,37 @@ trait UserMethod
         return route('profile', [$this->id]);
     }
 
+    public function formatGender(): string
+    {
+        return self::GENDERS[$this->gender];
+    }
+
     public function formatUnit(): string
     {
         return self::LENGTH_UNITS[$this->unit];
+    }
+
+    public function formatFriendState(): ?string
+    {
+        $user = auth()->user();
+
+        if ($user->id === $this->id) {
+           return null;
+        }
+
+        if ($this->requestReceived($user)) {
+            return Friend::REQUEST_RECEIVED;
+        }
+
+        if ($this->isFriends($user)) {
+            return Friend::ARE_FRIENDS;
+        }
+
+        if ($this->requestSent($user)) {
+            return Friend::REQUEST_SENT;
+        }
+
+        return null;
     }
 
     public function image(): string
@@ -101,17 +129,45 @@ trait UserMethod
 
     public function toArray(): array
     {
+        $owner = $this->isOwner();
+
         return [
-            'name' => $this->formatName(),
-            'email' => $this->email,
-            'location' => [
-                'id' => $this->place ? $this->place->id : null,
-                'lat' => $this->location ? $this->location->getLat() : null,
-                'lng' => $this->location ? $this->location->getLng() : null,
-                'formatted' => $this->place ? $this->place->formatted_address : null,
+            'id'       => $this->id,
+            'username' => $this->username,
+            'email'    => $owner ? $this->email : null,
+            'gender'    => [
+                'id' => $this->gender,
+                'formatted' => $this->formatGender(),
             ],
-            'timezone' => $this->timezone ? $this->timezone->toArray() : null,
+            'birthdate'    => [
+                'date' => $this->birthdate,
+                'formatted' => $this->birthdate?->format('m/d/Y'),
+            ],
+            'sports'    => $this->sports->toArray(),
+            'stats'     => [
+                'friends' => $this->friends()->count(),
+                'hosting' => $this->hosting->count(),
+                'going'   => $this->going()->count(),
+            ],
+            'unit'    => [
+                'id' => $this->unit,
+                'formatted' => $this->formatUnit(),
+            ],
+            'location' => $owner ? [
+                'id'        => $this->place?->id,
+                'lat'       => $this->location?->getLat(),
+                'lng'       => $this->location?->getLng(),
+                'formatted' => $this->place?->formatted_address,
+            ] : null,
+            'bio' => $this->bio,
+            'timezone' => $this->timezone?->toArray(),
+            'image'    => $this->image(),
         ];
+    }
+
+    public function isOwner(): bool
+    {
+        return $this->id === auth()->id();
     }
 
     public function getJWTIdentifier()

@@ -19,6 +19,15 @@ trait SportMethod
         return route('events.sport', ['sport' => $this->slug]);
     }
 
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'emoji' => $this->emoji,
+        ];
+    }
+
     public function searchAround($radius = EventSearchService::DEFAULT_RADIUS_DISTANCE_KM)
     {
         $eventSearchService = new EventSearchService();

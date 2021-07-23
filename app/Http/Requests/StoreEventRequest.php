@@ -5,12 +5,12 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Requests\ApiRequest;
 use App\Models\User\Event;
 use Carbon\Carbon;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreEventRequest extends FormRequest
+class StoreEventRequest extends ApiRequest
 {
     public function rules()
     {

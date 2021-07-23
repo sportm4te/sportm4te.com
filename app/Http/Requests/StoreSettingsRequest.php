@@ -5,11 +5,11 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Requests\ApiRequest;
 use App\Models\User;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreSettingsRequest extends FormRequest
+class StoreSettingsRequest extends ApiRequest
 {
     public function rules()
     {

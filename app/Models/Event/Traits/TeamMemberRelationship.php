@@ -8,9 +8,12 @@ namespace App\Models\Event\Traits;
 use App\Models\Event\Team;
 use App\Models\User;
 
+/**
+ * @property User|null $user
+ * @property Team|null $team
+ */
 trait TeamMemberRelationship
 {
-
     public function user()
     {
         return $this->hasOne(User::class, 'id', 'user_id');

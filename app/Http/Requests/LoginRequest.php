@@ -5,15 +5,13 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\ApiRequest;
-
-class StoreScoreRequest extends ApiRequest
+class LoginRequest extends ApiRequest
 {
     public function rules()
     {
         return [
-            'score' => 'required|numeric',
+            'username' => 'required|string',
+            'password' => 'required|string',
         ];
     }
 }
-

@@ -10,7 +10,7 @@
 
 @section('content')
     <div class="sports">
-        <form action="{{ route('sport-choose.store') }}" method="post">
+        <form action="{{ route('api.sport-choose.store') }}" method="post">
             @csrf
             <div class="card card-style">
                 <div class="content">

@@ -190,7 +190,7 @@ class sportM4te {
                         this.toast({...response.data});
                     }
                 }).catch(({response}) => {
-                    if (response.data.errors) {
+                    if (response.data.error) {
                         this.toast({...response.data});
                     } else {
                         this.modalIcon('error');
@@ -220,16 +220,12 @@ class sportM4te {
         })
     }
 
-    toast({message, errors, title, icon, redirect}) {
+    toast({message, error, title, icon, redirect}) {
         let element = document.getElementById('basic-snackbar'),
             className = 'bg-green-dark';
 
-        if (errors) {
-            if (typeof errors === 'string') {
-                message = errors;
-            } else {
-                message = Object.values(errors)[0][0];
-            }
+        if (error) {
+            message = error.message;
             title = 'Error';
             icon = 'fa fa-times';
             className = 'bg-red-dark';

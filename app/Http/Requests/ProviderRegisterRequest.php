@@ -8,7 +8,7 @@ namespace App\Http\Requests;
 use App\Models\User;
 use Illuminate\Validation\Rule;
 
-class RegisterRequest extends ApiRequest
+class ProviderRegisterRequest extends ApiRequest
 {
     public function rules()
     {
@@ -17,7 +17,6 @@ class RegisterRequest extends ApiRequest
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'birthdate' => ['required', 'date_format:Y-m-d', 'check_age'],
             'gender' => ['required', Rule::in(array_keys(User::GENDERS))],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
             'terms' => ['required'],
         ];
     }

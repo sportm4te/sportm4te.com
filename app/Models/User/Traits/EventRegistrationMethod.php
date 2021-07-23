@@ -29,4 +29,15 @@ trait EventRegistrationMethod
 
         return 'Declined';
     }
+
+    public function toArray()
+    {
+        return [
+            'id'       => $this->id,
+            'type'     => self::MEMBER,
+            'score'    => $this->score?->toArray(),
+            'approved' => $this->isApproved(),
+            'user'     => $this->user->toArray(),
+        ];
+    }
 }

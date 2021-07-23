@@ -5,7 +5,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Exceptions\InvalidRequestException;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProviderRegisterRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Management\ApiResponse;
 use App\Management\RegisterService;
@@ -68,35 +70,16 @@ class RegisterController extends Controller
     }
 
     /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        $registerRequest = new RegisterRequest();
-
-        return Validator::make($data, [
-            'username' => ['required', 'string', 'min:5', 'max:20', 'check_username', 'unique:users'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'birthdate' => ['required', 'date', 'check_age'],
-            'gender' => ['required', Rule::in(array_keys(User::GENDERS))],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'terms' => ['required'],
-        ], [
-            'check_age' => 'You are not able to join.',
-        ]);
-    }
-
-    /**
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
      */
     protected function create(array $data)
     {
-        $timezone = Timezone::where('timezone', $data['timezone'])->first()->id ?? null;
+        $timezone = null;
+        if (!empty($data['timezone'])) {
+            $timezone = Timezone::where('timezone', $data['timezone'])->first()->id ?? null;
+        }
 
         return User::create([
             'username' => $data['username'],
@@ -112,13 +95,11 @@ class RegisterController extends Controller
     /**
      * Handle a registration request for the application.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  RegisterRequest $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
-        $this->validator($request->all())->validate();
-
         event(new Registered($user = $this->create($request->all())));
 
         $this->guard()->login($user);
@@ -127,12 +108,12 @@ class RegisterController extends Controller
             return $response;
         }
 
-        return $request->wantsJson()
-            ? new JsonResponse([
-                'message' => 'You have been registered.',
-                'redirect' => $this->redirectPath(),
-            ], 201)
-            : redirect($this->redirectPath());
+        return new JsonResponse([
+            'user' => $this->guard()->user()->toArray(),
+            'token' => getToken(),
+            'message' => 'You have been registered.',
+            'redirect' => $this->redirectPath(),
+        ], 201);
     }
 
 }

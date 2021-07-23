@@ -7,6 +7,7 @@ namespace App\Models\User;
 
 use App\Models\User\Traits\EventMethod;
 use App\Models\User\Traits\EventRelationship;
+use App\Models\User\Traits\UserSportMethod;
 use App\Models\User\Traits\UserSportRelationship;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -22,7 +23,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class UserSport extends Model
 {
-    use UserSportRelationship;
+    use UserSportRelationship,
+        UserSportMethod;
 
     protected $table = 'user_sport';
 

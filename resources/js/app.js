@@ -29,7 +29,7 @@ class api {
                 return resolve([])
             }
 
-            return this.request(`https://api.sportm4te.com/api/places?q=${encodeURI(input)}`)
+            return this.request(`https://api.sportm4te.com/v1.0/places?q=${encodeURI(input)}`)
                 .then(response => {
                     resolve(response.data)
                 })
@@ -37,7 +37,7 @@ class api {
     }
 
     me() {
-        return this.request('https://api.sportm4te.com/api/me');
+        return this.request('https://api.sportm4te.com/v1.0/me');
     }
 }
 
@@ -587,7 +587,7 @@ class sportM4te {
 
             const id = currentElementObj.getAttribute('data-id');
 
-            _sportM4te.api.request('https://api.sportm4te.com/api/events/request/hide', {
+            _sportM4te.api.request('https://api.sportm4te.com/v1.0/events/request/hide', {
                 id,
             });
 

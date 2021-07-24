@@ -14,7 +14,6 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\DashboardController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,7 +36,7 @@ Route::domain('api.sportm4te.com')->group(function () {
                 Route::post('/password/confirm', [ConfirmPasswordController::class, 'confirm']);
                 Route::post('/login', [LoginController::class, 'login'])->name('login');
                 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-                Route::post('/register', [RegisterController::class, 'register']);
+                Route::post('/register', [RegisterController::class, 'register'])->name('register');
                 Route::post('/provider/register', [SocialController::class, 'store'])->name('provider.register-setup');
 
                 // $this->post('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');

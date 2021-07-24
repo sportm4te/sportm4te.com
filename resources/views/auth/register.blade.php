@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <form method="POST" action="{{ route('register') }}" data-hook="basic-response">
+    <form method="POST" action="{{ route('api.register') }}" data-hook="basic-response">
         @csrf
         <div class="card mb-0" style="background-image: url(/images/category/tennis.jpg); height: 830px;">
             <div class="card-top">

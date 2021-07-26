@@ -45,7 +45,7 @@
                             @endif
                         </em>
                         <strong>{{ $member->name }} <span class="badge bg-transparent border border-red-dark color-red-dark ms-2 d-inline-block">TEAM</span></strong>
-                        <span><i class="fa fa-users"></i>{{ $member->formatMembers() }}</span>
+                        <span><i class="fa fa-users"></i>{!! $member->formatMembers() !!}</span>
                     </div>
                     @else
                         <div class="cal-schedule">

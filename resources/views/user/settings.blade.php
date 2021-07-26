@@ -49,7 +49,7 @@
                 </div>
                 <div class="input-style has-borders no-icon input-style-always-active mb-4 autocomplete">
                     <label for="gender" class="color-highlight">Gender</label>
-                    {{ html()->select('gender', $genders, old('gender', $user->unit))->id('gender') }}
+                    {{ html()->select('gender', $genders, old('gender', $user->gender))->id('gender') }}
                     <span><i class="fa fa-chevron-down"></i></span>
                     <i class="fa fa-check disabled valid color-green-dark"></i>
                     <i class="fa fa-check disabled invalid color-red-dark"></i>

@@ -12,7 +12,7 @@
         <div class="d-flex content mt-0 mb-1">
 
             <div>
-                <img src="{{ $user->image() }}" data-src="{{ $user->image() }}" width="85" class="rounded-circle me-3 shadow-xl preload-img entered loaded" data-ll-status="loaded">
+                <img src="{{ $user->image() }}" data-src="{{ $user->image() }}" width="85" height="85" class="rounded-circle me-3 shadow-xl preload-img entered loaded" data-ll-status="loaded">
             </div>
 
             <div class="flex-grow-1">
@@ -93,6 +93,26 @@
             </div>
         </div>
         <div class="divider mb-3"></div>
+        @if($canAddReview)
+            @php
+                $review = $user->reviews->firstWhere('author_id', auth()->user()->id);
+            @endphp
+            <div class="card card-style">
+                <form class="content text-center" id="user-review" action="{{ route('api.user.review', [$user->id]) }}" data-hook="basic-response">
+                    <h1>My Review</h1>
+                    <img src="{{ auth()->user()->image() }}" class="mx-auto rounded-circle shadow-xl" width="150">
+                    <h1 class="mt-4 font-20 font-700 mb-n1">{{ auth()->user()->formatName() }}</h1>
+                    <span>
+                        @foreach(range(1, 5) as $star)
+                            <i class="fa fa-star font-18 {{ ((($review->stars ?? 5) >= $star) ? 'color-yellow-dark' : 'color-dark-dark') }}"></i>
+                        @endforeach
+                        <input type="hidden" name="rating" id="rating" value="{{ $review->stars ?? 0 }}">
+                        <textarea class="line-height-l boxed-text-xl font-14 pb-3 border-0" name="review" placeholder="Wrote Review to this User here... (optional)">{{ $review->review ?? null }}</textarea>
+                        <button class="btn btn-full btn-s font-600 rounded-s gradient-highlight mt-1 m-auto" {{ ((!$review) ? 'disabled' : '') }}>Save Review</button>
+                    </span>
+                </form>
+            </div>
+        @endif
 
         @if($user->reviews->isNotEmpty())
             <div class="card card-style">
@@ -204,7 +224,7 @@
 @section('after:content')
     <div id="remove-friend" class="menu menu-box-modal rounded-m" data-menu-width="300" data-menu-height="380">
         <form class="text-center" action="{{ route('api.friends.remove', [$user->id]) }}" data-hook="basic-response-reload">
-            <img src="{{ $user->image() }}" width="150" class="mx-auto mt-4 rounded-circle">
+            <img src="{{ $user->image() }}" width="150" height="150" class="mx-auto mt-4 rounded-circle">
             <p class="text-center font-15 mt-4">Remove <strong>{{ $user->formatName() }}</strong> from friends?</p>
             <div class="divider mb-0"></div>
             <button class="color-red-dark font-15 font-600 text-center py-3 d-block w-100">Remove</button>
@@ -214,3 +234,8 @@
     </div>
 @endsection
 
+@section('after:scripts')
+    <script>
+        sportM4te.review();
+    </script>
+@endsection

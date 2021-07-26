@@ -112,7 +112,7 @@
             <div class="content text-center">
                 <a href="{{ $friendRequest->requester->link() }}">
                     <img src="{{ $friendRequest->requester->image() }}" class="mx-auto rounded-circle shadow-xl"
-                         width="150">
+                         width="150" height="150">
                     <h1 class="mt-4 font-20 font-700 mb-n1">{{ $friendRequest->requester->name }}</h1>
                 </a>
                 <span>

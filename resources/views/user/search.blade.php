@@ -60,7 +60,7 @@
         <div class="card card-style">
             <div class="content text-center">
                 <a href="{{ $user->link() }}">
-                    <img src="{{ $user->image() }}" class="mx-auto rounded-circle shadow-xl" width="150">
+                    <img src="{{ $user->image() }}" class="mx-auto rounded-circle shadow-xl" width="150" height="150">
                     <h1 class="mt-4 font-20 font-700 mb-n1">{{ $user->formatName() }}</h1>
                 </a>
                 @if($user->reviews->isNotEmpty())

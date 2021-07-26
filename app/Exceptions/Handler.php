@@ -8,6 +8,7 @@ namespace App\Exceptions;
 use App\Exceptions\ApiConnectionException;
 use App\Exceptions\ApiErrorException;
 use App\Exceptions\ApiRateLimitException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Auth\AuthenticationException;
 use Auth;
@@ -25,7 +26,12 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        //
+        InvalidApiTokenException::class,
+        InvalidParameterException::class,
+        InvalidRequestException::class,
+        MissingParameterException::class,
+        RestrictedException::class,
+        MissingException::class,
     ];
 
     /**
@@ -54,6 +60,8 @@ class Handler extends ExceptionHandler
                 $e = new InvalidApiTokenException();
             } elseif ($e instanceof ThrottleRequestsException) {
                 $e = new ApiRateLimitException();
+            } elseif ($e instanceof ModelNotFoundException) {
+                $e = new MissingException();
             } elseif (!($e instanceof ApiErrorException)) {
                 $e = new ApiConnectionException();
             }

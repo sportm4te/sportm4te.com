@@ -62,9 +62,6 @@ Route::domain('api.sportm4te.com')->group(function () {
                     Route::group(['as' => 'teams.', 'prefix' => 'teams'], function () {
                         Route::post('/{event}/create', [EventController::class, 'createTeam'])->name('create');
                     });
-                });
-
-                Route::group(['as' => 'events.', 'prefix' => 'events'], function () {
                     Route::get('/me', [EventController::class, 'me'])->name('me');
                     Route::get('/{sport}/search', [EventController::class, 'search'])->name('sport');
                     Route::get('/search', [EventController::class, 'search'])->name('list');

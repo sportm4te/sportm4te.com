@@ -23,4 +23,9 @@ class Review extends Model
     use ReviewRelationship;
 
     protected $table = 'review';
+
+    protected $fillable = [
+        'user_id',
+        'author_id',
+    ];
 }

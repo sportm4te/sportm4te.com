@@ -165,6 +165,24 @@ trait UserMethod
         ];
     }
 
+    public function canAddReview(): bool
+    {
+        $user = auth()->user();
+
+        return $this->hosting()->whereHas('registrations', function($q) {
+                $q->where('user_id', auth()->id());
+            })->exists()
+            || $this->hosted()->whereHas('registrations', function ($q) {
+                $q->where('user_id', auth()->id());
+            })->exists()
+            || $user->hosting()->whereHas('registrations', function($q) use ($user) {
+                $q->where('user_id', $user->id);
+            })->exists()
+            || $user->hosted()->whereHas('registrations', function ($q) use ($user) {
+                $q->where('user_id', $user->id);
+            })->exists();
+    }
+
     public function isOwner(): bool
     {
         return $this->id === auth()->id();

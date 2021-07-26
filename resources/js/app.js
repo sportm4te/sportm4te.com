@@ -5,6 +5,15 @@ const axios = require('axios');
 const Autocomplete = require("@trevoreyre/autocomplete-js").default;
 const pwaName = "Appkit";
 
+function index(el) {
+    if (!el) return -1;
+    var i = 0;
+    do {
+        i++;
+    } while (el = el.previousElementSibling);
+    return i;
+}
+
 class api {
     request(url, data) {
         const {token} = this,
@@ -376,7 +385,33 @@ class sportM4te {
             setTimeout(function(){setColorScheme();},50)
         }))
     }
-     stackedCards () {
+
+    review() {
+        const stars = document.querySelectorAll('#user-review .fa-star'),
+            rating = document.getElementById('rating'),
+            button = document.querySelector('#user-review button');
+
+        stars.forEach((element) => {
+            element.addEventListener('click', (event) => {
+                const i = index(event.target);
+
+                stars.forEach((star, index) => {
+                    if (index < i) {
+                        star.classList.add('color-yellow-dark');
+                        star.classList.remove('color-dark-dark');
+                    } else {
+                        star.classList.add('color-dark-dark');
+                        star.classList.remove('color-yellow-dark');
+                    }
+                });
+
+                rating.value = i;
+                button.disabled = false;
+            });
+        });
+    }
+
+    stackedCards () {
 
         var stackedOptions = 'Top'; //Change stacked cards view from 'Bottom', 'Top' or 'None'.
         var rotate = true; //Activate the elements' rotation for each move on stacked cards.

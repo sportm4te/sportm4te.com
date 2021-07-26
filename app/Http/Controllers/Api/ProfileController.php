@@ -5,13 +5,38 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exceptions\RestrictedException;
+use App\Http\Requests\ReviewRequest;
 use App\Models\User;
 use App\Models\User\Event;
+use App\Models\User\Review;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 class ProfileController extends Controller
 {
+    public function review(User $user, ReviewRequest $request)
+    {
+        if (!$user->canAddReview()) {
+            throw new RestrictedException();
+        }
+
+        $review = Review::firstOrNew([
+            'author_id' => $request->user()->id,
+            'user_id'   => $user->id,
+        ]);
+        $review->stars = $request->get('rating');
+        $review->review = $request->get('review');
+
+        $user->reviews()->save($review);
+
+        return new JsonResponse([
+            'event'   => $review->toArray(),
+            'message' => 'Review has been saved!',
+            'redirect' => $user->link(),
+        ]);
+    }
+
     public function profile(string $username)
     {
         /**
@@ -19,15 +44,10 @@ class ProfileController extends Controller
          */
         $user = User::where('username', $username)->firstOrFail();
 
-        $user->load(['sports.sport', 'reviews.stars', 'reviews.author']);
+        $user->load(['sports.sport', 'reviews', 'reviews.author']);
 
         $friendState = $user->formatFriendState();
-        $canAddReview = $user->hosting()->whereHas('registrations', function ($q) {
-                $q->where('user_id', auth()->id());
-            })->exists()
-            || auth()->user()->hosting()->whereHas('registrations', function ($q) use ($user) {
-                $q->where('user_id', $user->id);
-            })->exists();
+        $canAddReview = $user->canAddReview();
         $friends = collect([]);
         $privateEvents = [];
 

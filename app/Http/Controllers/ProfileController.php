@@ -22,14 +22,9 @@ class ProfileController extends Controller
 
     public function profile(User $user)
     {
-        $user->load(['sports.sport', 'reviews.stars', 'reviews.author']);
+        $user->load(['sports.sport', 'reviews', 'reviews.author']);
 
-        $canAddReview = $user->hosting()->whereHas('registrations', function($q) {
-            $q->where('user_id', auth()->id());
-        })->exists()
-        || auth()->user()->hosting()->whereHas('registrations', function($q) use ($user) {
-                $q->where('user_id', $user->id);
-            })->exists();
+        $canAddReview = $user->canAddReview();
 
         return view('user.profile', get_defined_vars());
     }

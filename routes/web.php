@@ -33,6 +33,7 @@ Route::domain('app.sportm4te.com')->group(function() {
 
     Route::group(['middleware' => 'guest'], function () {
         Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+        Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name('password.email');
         Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
         Route::get('password/confirm', [ConfirmPasswordController::class, 'showConfirmForm'])->name('password.confirm');
         Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login.form');

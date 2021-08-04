@@ -22,8 +22,10 @@ trait SportMethod
     public function toArray()
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
+            'id'    => $this->id,
+            'slug'  => $this->slug,
+            'image' => $this->image(),
+            'name'  => $this->name,
             'emoji' => $this->emoji,
         ];
     }

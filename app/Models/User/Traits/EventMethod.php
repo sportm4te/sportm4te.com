@@ -6,6 +6,7 @@
 namespace App\Models\User\Traits;
 
 use Carbon\Carbon;
+use Jenssegers\Agent\Agent;
 use Webpatser\Uuid\Uuid;
 
 trait EventMethod
@@ -90,11 +91,22 @@ trait EventMethod
 
     public function deadlineTz()
     {
-        return $this->deadline->clone()->shiftTimezone($this->place->timezone->timezone);
+        return $this->deadline?->clone()->shiftTimezone($this->place->timezone->timezone);
+    }
+
+    public function formatMapsLink()
+    {
+        $query = urlencode($this->location);
+
+        return "https://maps.apple.com/?q=" . $query;
     }
 
     public function formatDeadline()
     {
+        if (!$this->deadline) {
+            return null;
+        }
+
         $user = Carbon::now()->tz(auth()->user()->timezone->timezone);
 
         return $this->deadline->format('jS F Y') . ' (' . $user->diffForHumans($this->deadlineTz()) . ' end)';
@@ -102,22 +114,22 @@ trait EventMethod
 
     public function startTz()
     {
-        return $this->start->clone()->shiftTimezone($this->place->timezone->timezone);
+        return $this->start?->clone()->shiftTimezone($this->place->timezone->timezone);
     }
 
     public function start()
     {
-        return $this->start->clone()->setTimezone($this->place->timezone->timezone);
+        return $this->start?->clone()->setTimezone($this->place->timezone->timezone);
     }
 
     public function endTz()
     {
-        return $this->end->clone()->shiftTimezone($this->place->timezone->timezone);
+        return $this->end?->clone()->shiftTimezone($this->place->timezone->timezone);
     }
 
     public function end()
     {
-        return $this->end->clone()->setTimezone($this->place->timezone->timezone);
+        return $this->end?->clone()->setTimezone($this->place->timezone->timezone);
     }
 
     public function formatStartIn()

@@ -322,7 +322,13 @@ class EventController extends Controller
         $going = $user->going;
         $pastEvents = $user->pastEvents;
 
-        return view('events.list-my-events', get_defined_vars());
+        return [
+            'hosting' => $hosting,
+            'hosted' => $hosted,
+            'upcoming' => $upcoming,
+            'going' => $going,
+            'pastEvents' => $pastEvents,
+        ];
     }
 
     public function search(

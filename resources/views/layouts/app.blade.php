@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="en" class="@yield('html-class')">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -151,7 +151,7 @@
         </div>
 
         <script type="text/javascript" src="/scripts/bootstrap.min.js"></script>
-        <script type="text/javascript" src="/scripts/custom.js"></script>
+        <script type="text/javascript" src="/scripts/custom.js?v=2"></script>
         <script>
             sportM4te.init('{{ getToken() }}');
         </script>

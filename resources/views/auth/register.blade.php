@@ -1,12 +1,14 @@
 @extends('layouts.app')
 
+@section('html-class', 'full-height')
+
 @section('content')
     <form method="POST" action="{{ route('api.register') }}" data-hook="basic-response">
         @csrf
-        <div class="card mb-0" style="background-image: url(/images/category/tennis.jpg); height: 830px;">
-            <div class="card-top">
+        <div class="card mb-0" style="background-image: url(/images/category/tennis.jpg); height:inherit">
+            <div class="card-center">
                 <div class="text-center">
-                    <img src="/images/logo.svg" style="width: 180px;padding: 70px 0 20px 0!important;">
+                    <img src="/images/logo.svg" style="width: 180px;padding: 30px 0 20px 0!important;">
                     <p class="font-600 color-highlight mb-1 font-16">Let's Get Started</p>
                     <h1 class="font-40 color-white">Sign Up</h1>
                 </div>

@@ -140,6 +140,14 @@ class sportM4te {
             document.querySelectorAll('.shareToLinkedIn').forEach(x => x.setAttribute("href", "https://www.linkedin.com/shareArticle?mini=true&url=" + share_link + "&title=" + share_title + "&summary=&source="));
         }
 
+        if (document.documentElement.classList.contains('full-height')) {
+            setTimeout(() => {
+                const card = document.querySelector('.card');
+
+                card.style.height = Math.max(card.firstElementChild.scrollHeight, card.parentElement.scrollHeight) + 'px';
+            }, 120);
+        }
+
         const menus = document.querySelectorAll('.menu');
         if (menus.length) {
             const menuHider = document.getElementsByClassName('menu-hider');
@@ -199,8 +207,14 @@ class sportM4te {
                         this.toast({...response.data});
                     }
                 }).catch(({response}) => {
-                    if (response.data.error) {
-                        this.toast({...response.data});
+                    if (response.data.errors) {
+                        const error = response.data;
+
+                        this.toast({error});
+                    } else if (response.data.error) {
+                        const error = response.data.error;
+
+                        this.toast({error});
                     } else {
                         this.modalIcon('error');
                     }

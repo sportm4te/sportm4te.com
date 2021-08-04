@@ -73,9 +73,12 @@
     @endif
 
     <div class="card card-style">
-        <div class="content">
+        <div class="content position-relative">
             <p class="font-600 color-highlight mb-n1">{{ $event->location }}</p>
             <h1>Event Location</h1>
+            <div class="card-center" style="z-index: 5">
+                <a href="{{ $event->formatMapsLink() }}" target="_blank" class="external-link float-end btn btn-xs rounded-xl text-uppercase font-900 me-3 bg-white color-black">Open in Maps</a>
+            </div>
         </div>
         <div class="responsive-iframe">
             <iframe src="{{ $event->map() }}"></iframe>

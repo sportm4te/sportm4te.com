@@ -1383,7 +1383,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
             }
-            checkPWA.setAttribute('class','isPWA');
+            checkPWA.classList.add('isPWA');
         }
 
         //End of isPWA

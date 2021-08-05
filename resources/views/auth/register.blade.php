@@ -29,7 +29,7 @@
                     </div>
                     <div class="input-style input-transparent no-borders has-icon validate-field mb-4">
                         <i class="fa fa-calendar"></i>
-                        <input type="text" name="birthdate" class="form-control @error('birthdate') is-invalid @enderror validate-birthdate" id="birthdate" placeholder="Birthdate" onfocus="this.type='date'">
+                        <input type="date" name="birthdate" class="form-control @error('birthdate') is-invalid @enderror validate-birthdate" id="birthdate" placeholder="Birthdate" onfocus="this.type='date'">
                         <label for="birthdate" class="color-highlight">Birthdate</label>
                         <i class="fa fa-times disabled invalid color-red-dark"></i>
                         <i class="fa fa-check disabled valid color-green-dark"></i>

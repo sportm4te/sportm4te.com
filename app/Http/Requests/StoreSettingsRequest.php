@@ -19,7 +19,7 @@ class StoreSettingsRequest extends ApiRequest
             // 'birthdate' => 'required|date',
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($this->user())],
             'unit' => ['required', Rule::in(array_keys(User::LENGTH_UNITS))],
-            'gender' => ['required', Rule::in(array_keys(User::GENDERS))],
+            'gender' => [Rule::in(array_keys(User::GENDERS))],
             'timezone' => 'required|exists:timezone,id',
         ];
     }

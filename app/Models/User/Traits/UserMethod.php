@@ -30,7 +30,7 @@ trait UserMethod
 
     public function isWithoutGender(): bool
     {
-        return $this->gender === self::GENDER_OTHER;
+        return $this->gender === self::GENDER_OTHER || $this->gender === null;
     }
 
     public function requestSent(User $user): bool

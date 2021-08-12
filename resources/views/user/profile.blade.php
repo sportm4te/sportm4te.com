@@ -53,6 +53,11 @@
                         </button>
                     </form>
                 @endif
+                @if($user->id !== auth()->id())
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeDrs13jqnhlarm2ks9y1_fXkgQ_tUn81QoscffvlsmnZYfVw/viewform?entry.2143134613={{ $user->formatName() }}" class="mt-2 btn btn-xs font-600 btn-border border-danger text-danger" target="_blank">
+                    <i class="fa fa-ban"></i>
+                    Report this user</a> <br> <br>
+                @endif
             </div>
         </div>
         @if($user->bio)

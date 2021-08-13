@@ -6,7 +6,7 @@ mydb = mysql.connector.connect(host='localhost',database='hajduk_app',user='hajd
 
 mycursor = mydb.cursor()
 
-a = 0
+a = 28
 
 should_restart = True
 while should_restart:
@@ -16,10 +16,8 @@ while should_restart:
     mycursor.execute(sql)
     myresult = mycursor.fetchall()
     if not myresult:
-        print("Not found")
         quit()
     else:
-        print("Result found")
         for x in myresult:
             censored_text = profanity.censor(x[0])
             mycursor = mydb.cursor()
@@ -27,4 +25,3 @@ while should_restart:
             mycursor.execute(sql)
             mydb.commit()
         should_restart = True
-

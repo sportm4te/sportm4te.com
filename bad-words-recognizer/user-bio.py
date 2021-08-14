@@ -7,7 +7,7 @@ import time
 
 mydb = mysql.connector.connect(host='localhost',database='hajduk_app',user='hajduk',password='vHgpUvwR*,;uS>')
 
-fromaddr = "reports@sportm4te.com"
+fromaddr = "no-reply@sportm4te.com"
 toaddr = "reports@sportm4te.com"
 msg = MIMEMultipart()
 msg['From'] = fromaddr

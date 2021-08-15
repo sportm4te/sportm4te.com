@@ -8,6 +8,7 @@ namespace App\Models\User\Traits;
 use App\Models\Management\Place;
 use App\Models\Management\Timezone;
 use App\Models\User;
+use App\Models\User\BlockedUser;
 use App\Models\User\Event;
 use App\Models\User\EventRegistration;
 use App\Models\User\Friend;
@@ -22,6 +23,7 @@ use Illuminate\Support\Collection;
  * @property Event[]|Collection|null $hosting
  * @property Event[]|Collection|null $hosted
  * @property Review[]|Collection|null $reviews
+ * @property BlockedUser[]|Collection|null $blocked
  * @property EventRegistration[]|Collection|null $upcoming
  * @property EventRegistration[]|Collection|null $upcomingEvents
  * @property EventRegistration[]|Collection|null $going
@@ -108,5 +110,10 @@ trait UserRelationship
     public function friendsOf()
     {
         return $this->belongsToMany(User::class, 'friend', 'user_id', 'friend_id')->where('confirmed', 1);
+    }
+
+    public function blocked()
+    {
+        return $this->hasMany(BlockedUser::class, 'user_id', 'id');
     }
 }

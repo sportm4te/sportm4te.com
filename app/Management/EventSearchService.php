@@ -63,6 +63,8 @@ class EventSearchService
 
         $events = Event::with($this->options['relations'] ?? []);
 
+        $events->whereNotIn('user_id', auth()->user()->blocked->pluck('blocked_id')->toArray());
+
         if (!empty($this->options['dates'])) {
             $events->where(function ($q) {
                 foreach ($this->options['dates'] as $date) {

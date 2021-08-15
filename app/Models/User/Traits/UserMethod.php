@@ -143,6 +143,7 @@ trait UserMethod
                 'date' => $this->birthdate,
                 'formatted' => $this->birthdate?->format('m/d/Y'),
             ],
+            'blocked'   => $owner ? $this->blocked->toArray() : null,
             'sports'    => $this->sports->toArray(),
             'stats'     => [
                 'friends' => $this->friends()->count(),

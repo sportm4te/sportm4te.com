@@ -112,6 +112,7 @@
             </div>
         </div>
         <div class="divider mb-3"></div>
+        @if($user->id !== auth()->id())
         @if($canAddReview)
             @php
                 $review = $user->reviews->firstWhere('author_id', auth()->user()->id);
@@ -132,7 +133,7 @@
                 </form>
             </div>
         @endif
-
+        @endif
         @if($user->reviews->isNotEmpty())
             <div class="card card-style">
                 <div class="content text-center">

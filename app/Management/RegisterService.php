@@ -30,7 +30,7 @@ class RegisterService
     public function getGenders(bool $autocomplete = true)
     {
         if ($autocomplete) {
-            return [null => 'Gender'] + User::GENDERS;
+            return User::GENDERS;
         }
 
         return User::GENDERS;

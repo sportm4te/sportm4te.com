@@ -77,6 +77,7 @@ Route::domain('api.sportm4te.com')->group(function () {
                     Route::post('/sport-choose', [SportChooseController::class, 'store'])->name('sport-choose.store');
                     Route::post('/{user}/review', [ProfileController::class, 'review'])->name('review');
                     Route::get('/profile/{user}', [ProfileController::class, 'profile'])->name('profile');
+                    Route::post('/profile/{user}/block', [ProfileController::class, 'blockOrUnblock'])->name('block');
 
                     Route::group(['as' => 'settings.', 'prefix' => 'settings'], function () {
                         Route::post('update', [SettingsController::class, 'settings'])->name('update');

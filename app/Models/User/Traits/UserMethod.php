@@ -30,7 +30,7 @@ trait UserMethod
 
     public function isWithoutGender(): bool
     {
-        return $this->gender === self::GENDER_OTHER || $this->gender === null;
+        return $this->gender === self::GENDER_OTHER || $this->gender === null || $this->gender === self::GENDER_NO;
     }
 
     public function requestSent(User $user): bool
@@ -143,6 +143,7 @@ trait UserMethod
                 'date' => $this->birthdate,
                 'formatted' => $this->birthdate?->format('m/d/Y'),
             ],
+            'blocked'   => $owner ? $this->blocked->toArray() : null,
             'sports'    => $this->sports->toArray(),
             'stats'     => [
                 'friends' => $this->friends()->count(),

@@ -23,7 +23,7 @@
                         Update Account
                     </a>
                 @elseif($user->requestReceived(auth()->user()))
-                    <form action="{{ route('api.friends.request-respond', [$user->id]) }}" data-hook="friend-request-respond" class="d-inline-block">
+                    <form action="{{ route('api.friends.request-respond', [$user->id]) }}" data-hook="friend-request-respond">
                         <button name="action" value="confirm" class="mt-2 btn btn-xs font-600 btn-border border-highlight color-highlight">
                             <i class="fa fa-user-times"></i>
                             Confirm Request
@@ -34,19 +34,19 @@
                         </button>
                     </form>
                 @elseif($user->isFriends(auth()->user()))
-                    <a href="#" data-menu="remove-friend" class="mt-2 btn btn-xs font-600 btn-border border-highlight color-highlight d-inline-block">
+                    <a href="#" data-menu="remove-friend" class="mt-2 btn btn-xs font-600 btn-border border-highlight color-highlight">
                             <i class="fa fa-user"></i>
                             <i class="font-11 fa fa-check"></i>
                     </a>
                 @elseif($user->requestSent(auth()->user()))
-                    <form action="{{ route('api.friends.request-respond', [$user->id]) }}" data-hook="basic-response-reload" class="d-inline-block">
+                    <form action="{{ route('api.friends.request-respond', [$user->id]) }}" data-hook="basic-response-reload">
                         <button name="action" value="remove" class="mt-2 btn btn-xs font-600 btn-border border-danger text-danger">
                             <i class="fa fa-user-times"></i>
                             Cancel Request
                         </button>
                     </form>
                 @else
-                    <form action="{{ route('api.friends.request', [$user->id]) }}" data-hook="basic-response-reload" class="d-inline-block">
+                    <form action="{{ route('api.friends.request', [$user->id]) }}" data-hook="basic-response-reload">
                         <button class="mt-2 btn btn-xs font-600 btn-border border-highlight color-highlight">
                         <i class="fa fa-user-plus"></i>
                         Add Friend
@@ -54,23 +54,9 @@
                     </form>
                 @endif
                 @if($user->id !== auth()->id())
-                    <div class="dropdown d-inline-block ms-2">
-                        <button class="btn btn-danger dropdown-toggle btn-xs mt-2" type="button" id="report" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-ban"></i> Block/Report
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="report">
-                            <li>
-                                <a class="dropdown-item" href="https://docs.google.com/forms/d/e/1FAIpQLSeDrs13jqnhlarm2ks9y1_fXkgQ_tUn81QoscffvlsmnZYfVw/viewform?entry.2143134613={{ $user->formatName() }}">
-                                    Report user
-                                </a>
-                            </li>
-                            <li>
-                                <form action="{{ route('api.user.block', [$user->username]) }}" data-hook="basic-response-redirect">
-                                    <button class="dropdown-item">Block user</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeDrs13jqnhlarm2ks9y1_fXkgQ_tUn81QoscffvlsmnZYfVw/viewform?entry.2143134613={{ $user->formatName() }}" class="mt-2 btn btn-xs font-600 btn-border border-danger text-danger" target="_blank">
+                    <i class="fa fa-ban"></i>
+                    Report this user</a> <br> <br>
                 @endif
             </div>
         </div>
@@ -112,7 +98,6 @@
             </div>
         </div>
         <div class="divider mb-3"></div>
-        @if($user->id !== auth()->id())
         @if($canAddReview)
             @php
                 $review = $user->reviews->firstWhere('author_id', auth()->user()->id);
@@ -133,7 +118,7 @@
                 </form>
             </div>
         @endif
-        @endif
+
         @if($user->reviews->isNotEmpty())
             <div class="card card-style">
                 <div class="content text-center">

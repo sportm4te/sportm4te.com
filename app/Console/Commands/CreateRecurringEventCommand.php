@@ -52,14 +52,15 @@ class CreateRecurringEventCommand extends Command
             'sunday',
         ];
 
-        $insert = 'INSERT IGNORE INTO event (user_id, parent_id, category_id, privacy, place_id, name, location, level, description, start, end, deadline, registration_limit, timezone_id, created_at, updated_at, deleted_at) ';
+        $insert = 'INSERT IGNORE INTO event';
 
         foreach ($daynames as $index => $dayname) {
             if ($index > 0) {
                 $insert .= ' UNION ';
             }
 
-            $insert .= "(SELECT event.user_id,
+            $insert .= "(SELECT NULL,
+	event.user_id,
 	event.id as parent_id,
 	event.category_id,
 	event.privacy,
@@ -68,13 +69,13 @@ class CreateRecurringEventCommand extends Command
 	event.location,
 	event.level,
 	event.description,
-	CONCAT(IF((@date := DATE(UTC_TIMESTAMP() + INTERVAL {$index} - WEEKDAY(UTC_TIMESTAMP()) DAY)) > event.start, @date, (@date := DATE(UTC_TIMESTAMP() + INTERVAL 7 + {$index} - WEEKDAY(UTC_TIMESTAMP()) DAY))), ' ', event_recurring.start),
+	CONCAT(IF((@date := DATE(SYSDATE() + INTERVAL {$index} - WEEKDAY(SYSDATE()) DAY)) > event.start, @date, (@date := DATE(SYSDATE() + INTERVAL 7 + {$index} - WEEKDAY(SYSDATE()) DAY))), ' ', event_recurring.start),
 	CONCAT(@date, ' ', event_recurring.end),
 	IF(event.deadline IS NULL, event.deadline, DATE_SUB(CONCAT(@date, ' ', event_recurring.start), INTERVAL TIME_TO_SEC(TIMEDIFF(event.start, event.deadline)) SECOND)),
 	event.registration_limit,
 	event.timezone_id,
-	UTC_TIMESTAMP(),
-	UTC_TIMESTAMP(),
+	SYSDATE(),
+	SYSDATE(),
 	event.deleted_at
 FROM event_recurring
 JOIN event ON event.id = event_id
@@ -84,28 +85,6 @@ WHERE event.deleted_at IS NULL
         }
 
         DB::insert($insert);
-        DB::insert(<<<SQL
-INSERT IGNORE INTO event_registration (event_id, user_id, approved, seen, created_at, updated_at)
-SELECT
-    `event`.id,
-    `event`.user_id,
-    1,
-    1,
-    UTC_TIMESTAMP(),
-    UTC_TIMESTAMP()
-FROM
-    `event`
-WHERE deleted_at IS NULL
-  AND created_at >= DATE_SUB(UTC_TIMESTAMP(), INTERVAL 5 MINUTE)
-  AND NOT EXISTS(
-        SELECT
-            1
-        FROM
-            event_registration
-        WHERE
-            event_registration.event_id = `event`.id
-    );
-SQL);
 
         return 0;
     }

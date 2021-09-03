@@ -37,33 +37,6 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function blockOrUnblock(string $username)
-    {
-        /**
-         * @var User $user
-         */
-        $user = User::where('username', $username)->firstOrFail();
-
-        $block = User\BlockedUser::firstOrNew([
-            'user_id' => auth()->user()->id,
-            'blocked_id' => $user->id,
-        ]);
-
-        $message = 'User has been unblocked;';
-        if ($block->exists) {
-            $block->delete();
-        } else {
-            auth()->user()->blocked()->save($block);
-            $message = 'User has been blocked;';
-        }
-
-        return new JsonResponse([
-            'event'   => $user->toArray(),
-            'message' => $message,
-            'redirect' => route('dashboard'),
-        ]);
-    }
-
     public function profile(string $username)
     {
         /**

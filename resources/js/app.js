@@ -61,7 +61,7 @@ class hooks {
             });
 
             setTimeout(() => {
-                window.location = data.redirect || data.event.link;
+                window.location = data.event.link;
             }, 1200);
         });
 

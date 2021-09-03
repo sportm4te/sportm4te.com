@@ -96,7 +96,6 @@ class User extends Authenticatable implements JWTSubject
     public const GENDER_MALE = 1;
     public const GENDER_FEMALE = 2;
     public const GENDER_OTHER = 3;
-    public const GENDER_NO = 4;
 
     public const LENGTH_UNITS = [
         self::MI_UNIT => 'mi',
@@ -104,7 +103,6 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     public const GENDERS = [
-        self::GENDER_NO => 'Gender',
         self::GENDER_MALE => 'Male',
         self::GENDER_FEMALE => 'Female',
         self::GENDER_OTHER => 'Rather not say',

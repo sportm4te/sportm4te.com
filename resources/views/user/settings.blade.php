@@ -98,6 +98,22 @@
             </div>
         </div>
     </form>
+    @if($blocked->isNotEmpty())
+        <div class="card card-style">
+            <div class="content mb-2">
+                <h5>Blocked Users</h5>
+                <div class="list-group list-custom-small list-menu ms-0 me-1">
+                    @foreach($blocked->pluck('user') as $user)
+                        <form action="{{ route('api.user.block', [$user->username]) }}" data-hook="basic-response-reload" class="d-flex justify-content-between align-items-center" id="user-{{ $user->id }}">
+                            <img src="{{ $user->image() }}" class="rounded-circle">
+                            <span>{{ $user->formatName() }}</span>
+                            <button type="submit" class="btn btn-xxs rounded-s text-uppercase font-900 shadow-s bg-danger"><i class="fa fa-unban"></i>Unblock</button>
+                        </form>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    @endif
 @endsection
 
 @section('after:scripts')

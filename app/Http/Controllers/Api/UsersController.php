@@ -31,7 +31,11 @@ class UsersController extends Controller
             'friendsOf',
             'reviews',
             'sports.sport',
-        ]);
+        ])->whereDoesntHave('blocked', function ($q) {
+            $q->where('blocked_id', auth()->id());
+        });
+
+        $users->whereNotIn('id', auth()->user()->blocked->pluck('blocked_id')->toArray());
 
         $users->where(function ($q) use ($text) {
             $q->where('username', 'like', $text . '%');

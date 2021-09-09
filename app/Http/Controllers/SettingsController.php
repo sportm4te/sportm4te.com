@@ -16,6 +16,7 @@ class SettingsController extends Controller
         $timezones = $registerService->getTimezones();
         $units = $registerService->getUnits();
         $genders = $registerService->getGenders(false);
+        $blocked = $user->blocked;
 
         return view('user.settings', get_defined_vars());
     }

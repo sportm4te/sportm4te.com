@@ -5,7 +5,7 @@
 @section('content')
     <form method="POST" action="{{ route('login') }}">
         @csrf
-    <div class="card mb-0" style="background-image: url(/images/category/tennis.jpg); height:inherit">
+    <div class="card mb-0" style="background-image: url(/images/sport/tennis.jpg); height:inherit">
         <div class="card-center">
             <div class="text-center">
                 <img src="/images/logo.svg" style="width: 180px;padding: 30px 0 20px 0!important;">
@@ -34,7 +34,7 @@
                 <a href="{{ route('provider.login', ['facebook']) }}" class="btn btn-full btn-l font-600 font-13 btn-border mt-3 border-blue-dark rounded-s"><i class="fab fa-facebook me-2"></i>Facebook login</a>
                 <a href="{{ route('provider.login', ['google']) }}" class="btn btn-full btn-l font-600 font-13 btn-border mt-3 border-red-dark rounded-s"><i class="fab fa-google me-2"></i>Google login</a>
                 <a href="{{ route('provider.login', ['apple']) }}" class="btn btn-full btn-l font-600 font-13 btn-border mt-3 border-dark-dark rounded-s"><i class="fab fa-apple me-2"></i>Apple login</a>
-             -->    
+             -->
                 </div>
                 <div class="row pt-3 mb-3">
                     <div class="col-6 text-start font-11">

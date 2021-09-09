@@ -4,7 +4,7 @@
     <form method="POST" action="{{ route('password.update') }}" data-hook="basic-response">
         @csrf
         <input type="hidden" name="token" value="{{ $token }}">
-        <div class="card mb-0" style="background-image: url(/images/category/tennis.jpg); height: 734px;">
+        <div class="card mb-0" style="background-image: url(/images/sport/tennis.jpg); height: 734px;">
             <div class="card-top">
                 <div class="text-center">
                     <img src="/images/logo.svg" style="width: 180px;padding: 70px 0 20px 0!important;">

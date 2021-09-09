@@ -5,7 +5,7 @@
 @section('content')
     <form method="POST" action="{{ route('password.email') }}" data-hook="basic-response">
         @csrf
-        <div data-card-height="cover-full" class="card mb-0" style="background-image: url(/images/category/tennis.jpg); height: inherit;">
+        <div data-card-height="cover-full" class="card mb-0" style="background-image: url(/images/sport/tennis.jpg); height: inherit;">
             <div class="card-center">
                 <div class="text-center">
                     <p class="font-600 color-highlight mb-1 font-16">Reset Account</p>

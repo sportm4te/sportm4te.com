@@ -21,7 +21,7 @@ class CreateBlockedUserTable extends Migration
             $table->timestamps();
         });
 
-        Schema::table('review', function (Blueprint $table) {
+        Schema::table('blocked_user', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('blocked_id')->references('id')->on('users');
         });

@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 */
 use App\Http\Controllers\Auth\LoginController;
 
-Route::domain('app.sportm4te.com')->group(function() {
+Route::domain(config('app.domain'))->group(function() {
     Route::group(['as' => 'users.', 'prefix' => 'users', 'middleware' => 'auth:web'], function () {
         Route::get('/list', [UsersController::class, 'list'])->name('list');
     });

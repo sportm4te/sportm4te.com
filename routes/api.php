@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::domain('api.sportm4te.com')->group(function () {
+Route::domain(config('app.api_domain'))->group(function () {
     Route::group(['as' => 'api.'], function () {
         Route::group(['prefix' => 'v1.0'], function () {
             Route::group(['middleware' => ['guest'], 'prefix' => 'user'], function () {

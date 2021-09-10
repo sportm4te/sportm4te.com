@@ -60,6 +60,10 @@ return [
 
     'asset_url' => env('ASSET_URL', null),
 
+    'api_domain' => env('API_DOMAIN', null),
+
+    'domain' => env('APP_DOMAIN', null),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

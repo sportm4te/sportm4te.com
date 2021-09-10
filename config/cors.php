@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*.sportm4te.com'],
+    'allowed_origins' => [env('CORS_ORIGINS')],
 
     'allowed_origins_patterns' => [],
 

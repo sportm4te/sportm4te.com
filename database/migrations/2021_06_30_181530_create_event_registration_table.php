@@ -18,6 +18,7 @@ class CreateEventRegistrationTable extends Migration
             $table->integer('event_id')->index();
             $table->integer('user_id')->index();
             $table->boolean('approved')->nullable()->index();
+            $table->boolean('seen')->nullable()->index();
             $table->timestamps();
             $table->unique(['event_id', 'user_id']);
         });

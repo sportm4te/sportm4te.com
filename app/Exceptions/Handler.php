@@ -55,7 +55,7 @@ class Handler extends ExceptionHandler
     {
         $ex = $e;
 
-        if ($request->routeIs('api.*')) {
+        if ($request->routeIs('api.*') || $request->wantsJson()) {
             if ($e instanceof TokenInvalidException || $e instanceof TokenExpiredException) {
                 $e = new InvalidApiTokenException();
             } elseif ($e instanceof ThrottleRequestsException) {

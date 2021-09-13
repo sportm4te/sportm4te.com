@@ -5,6 +5,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Exceptions\InvalidParameterException;
 use App\Exceptions\InvalidRequestException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
@@ -76,6 +77,14 @@ class LoginController extends Controller
         $this->incrementLoginAttempts($request);
 
         return $this->sendFailedLoginResponse($request);
+    }
+
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        $exception = new InvalidParameterException(trans('auth.failed'));
+        $exception->setParam($this->username());
+
+        return throw $exception;
     }
 
     /**

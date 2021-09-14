@@ -63,6 +63,9 @@
                             <a id="nav-welcome" href="{{ route('dashboard') }}" class="show-offline">
                                 <i class="fa fa-home gradient-blue color-white"></i> <span>Dashboard</span>
                                 <i class="fa fa-angle-right"></i> </a>
+                                <a id="nav-welcome" href="{{ route('Inbox') }}" class="show-offline">
+                            <i class="fa fa-comment gradient-pink color-white"></i> <span>Inbox</span>
+                            <i class="fa fa-angle-right"></i> </a>
                             <a id="nav-welcome" href="{{ auth()->user()->link() }}" class="show-offline">
                                 <i class="fa fa-user gradient-orange color-white"></i> <span>My Profile</span>
                                 <i class="fa fa-angle-right"></i> </a>

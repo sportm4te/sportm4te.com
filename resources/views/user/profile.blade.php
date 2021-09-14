@@ -70,6 +70,11 @@
                                 </form>
                             </li>
                         </ul>
+                        <a href="/Conversation/{{ $user->id }}/{{ str_replace(' ', '-', $user->username) }}"
+                    class="mt-2 btn btn-xs font-600 btn-border border-highlight color-highlight">
+                    <i class="fa fa-comment"></i>
+                    Message
+                </a>
                     </div>
                 @endif
             </div>

@@ -14,9 +14,9 @@
                 'title' => 'Home',
                 'circle' => true,
             ],
-            'settings' => [
-                'icon' => 'fa fa-cog',
-                'title' => 'Settings',
+            'sport-centers' => [
+                'icon' => 'fa fa-dumbbell',
+                'title' => 'Sport Centers',
             ],
         ];
     @endphp

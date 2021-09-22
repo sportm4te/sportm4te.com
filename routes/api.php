@@ -14,6 +14,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\DashboardController;
+use App\Http\Controllers\Api\MessengerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -51,6 +52,15 @@ Route::domain(config('app.api_domain'))->group(function () {
                     Route::post('/{user}/request-respond', [FriendController::class, 'requestRespondFriend'])->name('request-respond');
                 });
 
+                Route::group(['as' => 'messenger.', 'prefix' => 'messenger'], function () {
+                    Route::get('/block_userr/{block_to}', [MessengerController::class, 'block_userr'])->name('block_userr/{block_to}');
+                    Route::get('/unblock_userr/{block_to}', [MessengerController::class, 'unblock_userr'])->name('unblock_userr/{block_to}');
+                    Route::get('/conversation_list', [MessengerController::class, 'conversation_list'])->name('conversation_list');
+                    Route::post('/create_group', [MessengerController::class, 'create_group'])->name('create_group');
+                     Route::post('/add_member/{member_id}/{group_id}', [MessengerController::class, 'add_member'])->name('add_member/{member_id}/{group_id}');
+                     Route::post('/leave_group/{group_id}', [MessengerController::class, 'leave_group'])->name('leave_group/{group_id}');
+
+                });
                 Route::group(['as' => 'events.', 'prefix' => 'events'], function () {
                     Route::post('/{event}/update', [EventController::class, 'updateEvent'])->name('update');
                     Route::post('/create', [EventController::class, 'createEvent'])->name('create');
@@ -78,7 +88,6 @@ Route::domain(config('app.api_domain'))->group(function () {
                     Route::post('/{user}/review', [ProfileController::class, 'review'])->name('review');
                     Route::get('/profile/{user}', [ProfileController::class, 'profile'])->name('profile');
                     Route::post('/profile/{user}/block', [ProfileController::class, 'blockOrUnblock'])->name('block');
-
                     Route::group(['as' => 'settings.', 'prefix' => 'settings'], function () {
                         Route::post('update', [SettingsController::class, 'settings'])->name('update');
                         Route::post('password', [SettingsController::class, 'passwordChange'])->name('password');
@@ -87,6 +96,7 @@ Route::domain(config('app.api_domain'))->group(function () {
             });
         });
     });
+
 
     Route::any("{fallbackPlaceholder}", function () {
         return ['error' => 'Invalid route.'];

@@ -10,7 +10,7 @@ trait TeamMethod
     public function formatMembers()
     {
         return $this->members->map(function ($member) {
-            return '<a href="' . $member->user->link() . '">' . $member->user->formatName() . '</a>';
+            return $member->user->formatName();
         })->implode(', ');
     }
 

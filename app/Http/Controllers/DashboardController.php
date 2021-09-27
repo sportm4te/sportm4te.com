@@ -9,10 +9,21 @@ use App\Models\User\Event;
 use App\Models\User\EventRegistration;
 use App\Models\User\Friend;
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
     public function dashboard(Request $request) {
+        $id = Auth::id();
+
+        $tutorial_status = DB::table('tutorial')->get()->where('user_id','=',"$id")->count();
+        if($tutorial_status == null) {
+            return redirect('/tutorial');
+        }
+        else{
+
         $stats = [
             'total' => auth()->user()->hosting()->count(),
             'accept' => auth()->user()->hosting()->whereHas('registrations')->count(),
@@ -37,4 +48,5 @@ class DashboardController extends Controller
 
         return view('user.dashboard', get_defined_vars());
     }
+}
 }

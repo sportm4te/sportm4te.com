@@ -24,6 +24,12 @@ class DashboardController extends Controller
         }
         else{
 
+        $my_sports = DB::table('user_sport')->get()->where('user_id','=',"$id")->count();
+        if($my_sports == null) {
+            return redirect('https://app.sportm4te.com/sport-choose');
+        }
+        else{
+
         $stats = [
             'total' => auth()->user()->hosting()->count(),
             'accept' => auth()->user()->hosting()->whereHas('registrations')->count(),
@@ -48,5 +54,6 @@ class DashboardController extends Controller
 
         return view('user.dashboard', get_defined_vars());
     }
+}
 }
 }
